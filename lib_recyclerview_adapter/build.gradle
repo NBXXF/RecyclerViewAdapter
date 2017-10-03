@@ -2,7 +2,23 @@ apply plugin: 'com.android.library'
 // 这里添加下面两行代码。
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
 // 定义两个链接，下面会用到。
 def siteUrl = 'https://github.com/axuan2015/RecyclerViewAdapter' // 项目主页。
 def gitUrl = 'https://github.com/axuan2015/RecyclerViewAdapter.git' // Git仓库的url。
@@ -84,30 +100,14 @@ bintray {
     pkg {
         repo = "RecyclerViewAdapter"  //Repository名字 需要自己在bintray网站上先添加
         name = "RecyclerViewAdapter"// 发布到Bintray上的项目名字，这里的名字不是compile 'com.ansen.library:circleimage:1.0.1'中的circleimage。
-        userOrg = 'asangge'//Bintray的组织id
+        userOrg = 'asange'//Bintray的组织id
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
         publish = true // 是否是公开项目。
     }
 }
-android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
 
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
