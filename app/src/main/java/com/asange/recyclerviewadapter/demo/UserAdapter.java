@@ -20,6 +20,11 @@ public class UserAdapter extends BaseRecyclerAdapter<User> {
     }
 
     @Override
+    public int getViewType(int index) {
+        return super.getViewType(index);
+    }
+
+    @Override
     public void onBindHolder(BaseViewHolder holder, @Nullable User user, int index) {
         if (user == null) return;
         TextView userNameTv = holder.obtainView(R.id.userNameTv);
