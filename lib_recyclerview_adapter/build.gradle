@@ -18,7 +18,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    provided 'com.android.support:recyclerview-v7:26.+'
+}
+
 // 定义两个链接，下面会用到。
 def siteUrl = 'https://github.com/axuan2015/RecyclerViewAdapter' // 项目主页。
 def gitUrl = 'https://github.com/axuan2015/RecyclerViewAdapter.git' // Git仓库的url。
@@ -109,7 +118,3 @@ bintray {
 }
 
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    provided 'com.android.support:appcompat-v7:26.+'
-}
