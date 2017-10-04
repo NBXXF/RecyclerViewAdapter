@@ -15,7 +15,7 @@ public class UserFactory {
 
     public static List<User> createUsers() {
         List<User> users = new ArrayList<>();
-        int size = 3 + new Random().nextInt(5);
+        int size = 5 + new Random().nextInt(10);
         for (int i = 0; i < size; i++) {
             users.add(new User(new Random().nextInt(100), "" + new Random().nextFloat()));
         }

@@ -12,9 +12,6 @@ import com.asange.recyclerviewadapter.BaseRecyclerAdapter;
 import com.asange.recyclerviewadapter.OnItemChildClickListener;
 import com.asange.recyclerviewadapter.OnItemClickListener;
 
-import static com.asange.recyclerviewadapter.demo.R.id;
-import static com.asange.recyclerviewadapter.demo.R.layout;
-
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnItemClickListener, OnItemChildClickListener {
 
@@ -40,23 +37,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_main);
+        setContentView(R.layout.activity_main);
         initView();
     }
 
     private void initView() {
-        mRecyclerView = (RecyclerView) findViewById(id.recyclerView);
-        mBtAdd = (Button) findViewById(id.btAdd);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mBtAdd = (Button) findViewById(R.id.btAdd);
         mBtAdd.setOnClickListener(this);
-        mBtAddFirst = (Button) findViewById(id.btAddFirst);
+        mBtAddFirst = (Button) findViewById(R.id.btAddFirst);
         mBtAddFirst.setOnClickListener(this);
-        mBtRemove = (Button) findViewById(id.btRemove);
+        mBtRemove = (Button) findViewById(R.id.btRemove);
         mBtRemove.setOnClickListener(this);
-        mBtRefresh = (Button) findViewById(id.btRefresh);
+        mBtRefresh = (Button) findViewById(R.id.btRefresh);
         mBtRefresh.setOnClickListener(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(userAdapter = new UserAdapter());
+        userAdapter.addHeader(R.layout.header, mRecyclerView);
+        userAdapter.addFooter(R.layout.footer, mRecyclerView);
         userAdapter.bindData(true, UserFactory.createUsers());
         userAdapter.setOnItemClickListener(this);
         userAdapter.setOnItemChildClickListener(this);
@@ -65,16 +64,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case id.btAdd:
+            case R.id.btAdd:
                 userAdapter.addItem(UserFactory.createUser());
                 break;
-            case id.btAddFirst:
+            case R.id.btAddFirst:
                 userAdapter.addItem(0, UserFactory.createUser());
                 break;
-            case id.btRemove:
+            case R.id.btRemove:
                 userAdapter.removeItem(0);
                 break;
-            case id.btRefresh:
+            case R.id.btRefresh:
                 userAdapter.bindData(true, UserFactory.createUsers());
                 break;
         }

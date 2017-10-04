@@ -26,6 +26,11 @@ import java.util.List;
  * version
  */
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseViewHolder> {
+    public static final View inflaterView(@LayoutRes int id, RecyclerView recyclerView) {
+        return LayoutInflater.from(recyclerView.getContext())
+                .inflate(id, recyclerView, false);
+    }
+
     private static final int HEADER_VIEW_TYPE = -10000;
     private static final int FOOTER_VIEW_TYPE = -20000;
     private final List<View> mHeaders = new ArrayList<View>();
@@ -62,6 +67,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         notifyDataSetChanged();
     }
 
+    public void addHeader(@LayoutRes int id, @NonNull RecyclerView recyclerView) {
+        addHeader(inflaterView(id, recyclerView));
+    }
 
     public void addFooter(@NonNull View view) {
         if (view == null) {
@@ -69,6 +77,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         }
         mFooters.add(view);
         notifyDataSetChanged();
+    }
+
+    public void addFooter(@LayoutRes int id, @NonNull RecyclerView recyclerView) {
+        addFooter(inflaterView(id, recyclerView));
     }
 
     @Nullable
