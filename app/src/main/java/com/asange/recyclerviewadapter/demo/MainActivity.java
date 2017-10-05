@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(BaseRecyclerAdapter adapter, BaseViewHolder holder, View itemView, int index) {
+        if (userAdapter.isSelectable()) {
+            userAdapter.toogleItemSelect(index);
+        }
         showToast("onItemClick:" + index);
     }
 
