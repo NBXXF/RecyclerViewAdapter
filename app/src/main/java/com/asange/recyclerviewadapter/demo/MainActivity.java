@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.asange.recyclerviewadapter.BaseRecyclerAdapter;
+import com.asange.recyclerviewadapter.BaseViewHolder;
 import com.asange.recyclerviewadapter.OnItemChildClickListener;
 import com.asange.recyclerviewadapter.OnItemClickListener;
 
@@ -84,8 +85,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
+
     @Override
-    public void onItemChildClick(BaseRecyclerAdapter adapter, BaseRecyclerAdapter.BaseViewHolder holder, View childView, int index) {
+    public void onItemClick(BaseRecyclerAdapter adapter, BaseViewHolder holder, View itemView, int index) {
+        showToast("onItemClick:" + index);
+    }
+
+    @Override
+    public void onItemChildClick(BaseRecyclerAdapter adapter, BaseViewHolder holder, View childView, int index) {
         switch (childView.getId()) {
             case R.id.clickBtn:
                 showToast("onItemChildClick:" + index);
@@ -99,10 +106,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 userAdapter.removeItem(index);
                 break;
         }
-    }
-
-    @Override
-    public void onItemClick(BaseRecyclerAdapter adapter, BaseRecyclerAdapter.BaseViewHolder holder, View itemView, int index) {
-        showToast("onItemClick:" + index);
     }
 }

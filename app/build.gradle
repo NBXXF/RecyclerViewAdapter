@@ -23,6 +23,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:recyclerview-v7:26.+'
-//    compile project(':lib_recyclerview_adapter')
-    compile 'com.asange.recyclerviewadapter:lib_recyclerview_adapter:1.0.2'
+    compile project(':lib_recyclerview_adapter')
+    //compile 'com.asange.recyclerviewadapter:lib_recyclerview_adapter:1.0.3'
 }

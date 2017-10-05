@@ -11,5 +11,5 @@ public interface OnItemChildLongClickListener {
      * @param index  相对于List容器的位置
      * @return
      */
-    boolean onItemChildLongClick(BaseRecyclerAdapter adapter, BaseRecyclerAdapter.BaseViewHolder holder, View childView, int index);
+    boolean onItemChildLongClick(BaseRecyclerAdapter adapter, BaseViewHolder holder, View childView, int index);
 }

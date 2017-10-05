@@ -1,18 +1,14 @@
 package com.asange.recyclerviewadapter;
 
-import android.databinding.ViewDataBinding;
 import android.support.annotation.CheckResult;
-import android.support.annotation.IdRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +21,7 @@ import java.util.List;
  * date createTime：2015/9/10 10:05
  * version
  */
-public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseViewHolder> {
+public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     public static final View inflaterView(@LayoutRes int id, RecyclerView recyclerView) {
         return LayoutInflater.from(recyclerView.getContext())
                 .inflate(id, recyclerView, false);
@@ -322,11 +318,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         if (isHeader(viewType)) {
             int whichHeader = Math.abs(viewType - HEADER_VIEW_TYPE);
             View headerView = mHeaders.get(whichHeader);
-            return new BaseViewHolder(headerView, false);
+            return new BaseViewHolder(this, headerView, false);
         } else if (isFooter(viewType)) {
             int whichFooter = Math.abs(viewType - FOOTER_VIEW_TYPE);
             View footerView = mFooters.get(whichFooter);
-            return new BaseViewHolder(footerView, false);
+            return new BaseViewHolder(this, footerView, false);
         } else {
             return onCreateHolder(viewGroup, viewType);
         }
@@ -340,7 +336,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
      * @return
      */
     public BaseViewHolder onCreateHolder(ViewGroup viewGroup, int viewType) {
-        BaseViewHolder viewHolder = new BaseViewHolder(LayoutInflater.from(viewGroup.getContext())
+        BaseViewHolder viewHolder = new BaseViewHolder(this, LayoutInflater.from(viewGroup.getContext())
                 .inflate(bindView(viewType), viewGroup, false), true);
         return viewHolder;
     }
@@ -373,139 +369,13 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     }
 
     @Override
-    public final void onBindViewHolder(BaseRecyclerAdapter.BaseViewHolder holder, int position) {
+    public final void onBindViewHolder(BaseViewHolder holder, int position) {
         if (position >= getHeaderCount() && position < getHeaderCount() + getData().size()) {
             int index = position - getHeaderCount();
             onBindHolder(holder, getItem(index), index);
         }
     }
 
-
-    public class BaseViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
-        private SparseArray<View> holder = null;
-        private ViewDataBinding binding;
-
-        @Nullable
-        public ViewDataBinding getBinding() {
-            return binding;
-        }
-
-        public void setBinding(ViewDataBinding binding) {
-            this.binding = binding;
-        }
-
-        public BaseViewHolder(View itemView, boolean bindItemClick) {
-            super(itemView);
-            if (bindItemClick) {
-                itemView.setOnClickListener(this);
-                itemView.setOnLongClickListener(this);
-            }
-        }
-
-        /**
-         * @return 相对于List容器的位置
-         */
-        public int getIndex() {
-            return getAdapterPosition() - getHeaderCount();
-        }
-
-        /**
-         * 获取子控件
-         *
-         * @param id
-         * @param <T>
-         * @return
-         */
-        @Nullable
-        public <T extends View> T obtainView(@IdRes int id) {
-            if (null == holder) holder = new SparseArray<>();
-            View view = holder.get(id);
-            if (null != view) return (T) view;
-            view = itemView.findViewById(id);
-            if (null == view) return null;
-            holder.put(id, view);
-            return (T) view;
-        }
-
-        @Nullable
-        public <T> T obtainView(@IdRes int id, Class<T> viewClazz) {
-            View view = obtainView(id);
-            if (null == view) return null;
-            return (T) view;
-        }
-
-
-        public BaseViewHolder bindChildClick(@IdRes int id) {
-            View view = obtainView(id);
-            return bindChildClick(view);
-        }
-
-        /**
-         * 子控件绑定局部点击事件
-         *
-         * @param v
-         * @return
-         */
-        public BaseViewHolder bindChildClick(@NonNull View v) {
-            if (v == null) return this;
-            if (v == itemView) {
-                throw new IllegalArgumentException("bindChildClick 不能传递item根布局!");
-            }
-            v.setOnClickListener(this);
-            return this;
-        }
-
-
-        public BaseViewHolder bindChildLongClick(@IdRes int id) {
-            View view = obtainView(id);
-            return bindChildLongClick(view);
-        }
-
-        public BaseViewHolder bindChildLongClick(@NonNull View v) {
-            if (v == null) return this;
-            if (v == itemView) {
-                throw new IllegalArgumentException("bindChildLongClick 不能传递item根布局");
-            }
-            v.setOnLongClickListener(this);
-            return this;
-        }
-
-        /**
-         * 文本控件赋值
-         *
-         * @param id
-         * @param text
-         */
-        public BaseViewHolder setText(@IdRes int id, CharSequence text) {
-            View view = obtainView(id);
-            if (view instanceof TextView) {
-                ((TextView) view).setText(text);
-            }
-            return this;
-        }
-
-
-        @Override
-        public boolean onLongClick(View v) {
-            if (onItemLongClickListener != null && v.getId() == this.itemView.getId()) {
-                return onItemLongClickListener.onItemLongClick(BaseRecyclerAdapter.this, this, v, getIndex());
-            } else if (onItemChildLongClickListener != null && v.getId() != this.itemView.getId()) {
-                return onItemChildLongClickListener.onItemChildLongClick(BaseRecyclerAdapter.this, this, v, getIndex());
-            }
-            return false;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (onItemClickListener != null && v.getId() == this.itemView.getId()) {
-                onItemClickListener.onItemClick(BaseRecyclerAdapter.this, this, v, getIndex());
-            } else if (onItemChildClickListener != null && v.getId() != this.itemView.getId()) {
-                onItemChildClickListener.onItemChildClick(BaseRecyclerAdapter.this, this, v, getIndex());
-            }
-        }
-
-    }
 
     protected OnItemClickListener onItemClickListener;
     protected OnItemLongClickListener onItemLongClickListener;

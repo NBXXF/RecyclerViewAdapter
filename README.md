@@ -1,3 +1,3 @@
 # RecyclerViewAdapter
-compile 'com.asange.recyclerviewadapter:lib_recyclerview_adapter:1.0.2'   
+compile 'com.asange.recyclerviewadapter:lib_recyclerview_adapter:1.0.3'   
 

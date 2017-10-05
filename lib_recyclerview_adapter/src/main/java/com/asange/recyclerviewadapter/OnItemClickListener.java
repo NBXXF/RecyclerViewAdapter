@@ -17,5 +17,5 @@ public interface OnItemClickListener {
      * @param itemView
      * @param index    相对于List容器的位置
      */
-    void onItemClick(BaseRecyclerAdapter adapter, BaseRecyclerAdapter.BaseViewHolder holder, View itemView, int index);
+    void onItemClick(BaseRecyclerAdapter adapter, BaseViewHolder holder, View itemView, int index);
 }
