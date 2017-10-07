@@ -47,7 +47,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
         return mFooters.size();
     }
 
-    public BaseRecyclerAdapter(@Nullable List<T> data) {
+    public BaseRecyclerAdapter(@NonNull List<T> data) {
         this.dataList = data == null ? new ArrayList<T>() : data;
     }
 

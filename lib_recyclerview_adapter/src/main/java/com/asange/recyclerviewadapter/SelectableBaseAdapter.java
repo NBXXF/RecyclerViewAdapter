@@ -33,6 +33,13 @@ public abstract class SelectableBaseAdapter<T extends SelectableEntity> extends 
     @SelectType
     private int selectType = SELECT_TYPE_SINGLE;//默认单选
 
+    public SelectableBaseAdapter() {
+    }
+
+    public SelectableBaseAdapter(@NonNull List<T> data) {
+        super(data);
+    }
+
     public int getSelectType() {
         return selectType;
     }

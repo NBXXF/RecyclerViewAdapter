@@ -1,5 +1,9 @@
 package com.asange.recyclerviewadapter;
 
+import android.support.annotation.NonNull;
+
+import java.util.List;
+
 /**
  * Description 多布局的适配器
  * Company Beijing icourt
@@ -8,6 +12,13 @@ package com.asange.recyclerviewadapter;
  * version 2.1.0
  */
 public abstract class MultiRecyclerAdapter<T extends MultiViewEntity> extends BaseRecyclerAdapter<T> {
+    public MultiRecyclerAdapter() {
+    }
+
+    public MultiRecyclerAdapter(@NonNull List<T> data) {
+        super(data);
+    }
+
     @Override
     public final int getViewType(int index) {
         T item = getItem(index);
