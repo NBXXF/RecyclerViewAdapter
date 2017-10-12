@@ -1,6 +1,6 @@
 # RecyclerViewAdapter
 
-博客地址:（http://blog.csdn.net/axuanqq/article/details/78215332）
+文档地址:http://blog.csdn.net/axuanqq/article/details/78215332
 
 
 gradle依赖地址:  
