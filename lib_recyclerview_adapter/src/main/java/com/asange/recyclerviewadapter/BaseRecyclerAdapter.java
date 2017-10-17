@@ -1,10 +1,18 @@
 package com.asange.recyclerviewadapter;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.CheckResult;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +40,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     private final List<View> mHeaders = new ArrayList<View>();
     private final List<View> mFooters = new ArrayList<View>();
     private List<T> dataList = new ArrayList<T>();
+    protected RecyclerView attachedRecyclerView;
 
     public List<T> getData() {
         return dataList;
@@ -398,5 +407,112 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
         this.onItemChildClickListener = l;
     }
 
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        attachedRecyclerView = recyclerView;
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        attachedRecyclerView = null;
+        super.onDetachedFromRecyclerView(recyclerView);
+    }
+
+    /**
+     * 获取上下文对象
+     *
+     * @return
+     */
+    @Nullable
+    public Context getContext() {
+        return attachedRecyclerView != null ? attachedRecyclerView.getContext() : null;
+    }
+
+    /**
+     * 获取字符串
+     *
+     * @param resId
+     * @return
+     */
+    @NonNull
+    public CharSequence getContextString(@StringRes int resId) {
+        return getContextString(resId, "");
+    }
+
+    /**
+     * 获取字符串
+     *
+     * @param resId
+     * @param defaultStr
+     * @return
+     */
+    public CharSequence getContextString(@StringRes int resId, CharSequence defaultStr) {
+        try {
+            return getContext().getString(resId);
+        } catch (android.content.res.Resources.NotFoundException e) {
+        }
+        return defaultStr;
+    }
+
+    /**
+     * ContextCompat.getColor() 将抛出异常,也没判断contexts是否为空
+     * android.content.res.Resources.NotFoundException
+     * 默认返回值为黑色
+     *
+     * @param id
+     */
+    @ColorInt
+    public int getContextColor(@ColorRes int id) {
+        return getContextColor(id, Color.BLACK);
+    }
+
+    /**
+     * ContextCompat.getColor() 将抛出异常,也没判断contexts是否为空
+     * android.content.res.Resources.NotFoundException
+     *
+     * @param id 如果不存在返回默认值                                                        does not exist.
+     */
+    @ColorInt
+    public int getContextColor(@ColorRes int id, @ColorInt int defaultColor) {
+        try {
+            return ContextCompat.getColor(getContext(), id);
+        } catch (android.content.res.Resources.NotFoundException e) {
+        }
+        return defaultColor;
+    }
+
+
+    /**
+     * ContextCompat.getDrawable() 将抛出异常,也没判断contexts是否为空
+     * android.content.res.Resources.NotFoundException
+     * 默认返回值为黑色
+     *
+     * @param id
+     */
+    public Drawable getContextDrawable(@DrawableRes int id) {
+        return getContextDrawable(id, R.drawable.ic_launcher);
+    }
+
+    /**
+     * ContextCompat.getDrawable() 将抛出异常,也没判断contexts是否为空
+     * android.content.res.Resources.NotFoundException
+     *
+     * @param id 如果不存在返回默认值                                                        does not exist.
+     */
+    @Nullable
+    public Drawable getContextDrawable(@DrawableRes int id, @DrawableRes int defaultDrawable) {
+        Drawable drawable = null;
+        try {
+            drawable = ContextCompat.getDrawable(getContext(), id);
+        } catch (android.content.res.Resources.NotFoundException e) {
+            try {
+                drawable = ContextCompat.getDrawable(getContext(), defaultDrawable);
+            } catch (android.content.res.Resources.NotFoundException e1) {
+            }
+        }
+        return drawable;
+    }
 }
 
