@@ -5,7 +5,7 @@
 
 gradle依赖地址:  
 
-compile 'com.asange.recyclerviewadapter:lib_recyclerview_adapter:1.0.6'  
+compile 'com.asange.recyclerviewadapter:lib_recyclerview_adapter:1.0.6.1'  
 
 
    招聘多名Android 工程师:  
