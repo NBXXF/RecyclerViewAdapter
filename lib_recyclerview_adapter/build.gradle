@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 6
-        versionName "1.0.6"
+        versionCode 7
+        versionName "1.0.7"
     }
     buildTypes {
         release {
@@ -37,7 +37,7 @@ def siteUrl = 'https://github.com/axuan2015/RecyclerViewAdapter' // 项目主页
 def gitUrl = 'https://github.com/axuan2015/RecyclerViewAdapter.git' // Git仓库的url。
 
 group = "com.asange.recyclerviewadapter"// 唯一包名,比如compile 'com.ansen.http:okhttpencapsulation:1.0.1'中的com.ansen.http就是这里配置的。
-version = "1.0.6.1"//项目引用的版本号，比如compile 'com.ansen.http:okhttpencapsulation:1.0.1'中的1.0.1就是这里配置的。
+version = "1.0.7"//项目引用的版本号，比如compile 'com.ansen.http:okhttpencapsulation:1.0.1'中的1.0.1就是这里配置的。
 
 install {
     repositories.mavenInstaller {

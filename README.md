@@ -5,12 +5,12 @@
 
 gradle依赖地址:  
 
-compile 'com.asange.recyclerviewadapter:lib_recyclerview_adapter:1.0.6.1'  
+compile 'com.asange.recyclerviewadapter:lib_recyclerview_adapter:1.0.7'
 
 
    招聘多名Android 工程师:  
    任职要求：  
-   1.计算机相关专业本科学历,3年以上工作经验;  
+   1.计算机相关专业本科学历,4年以上工作经验;
    2.熟悉Android的基本组件与自定义控件;  
    3.有过聊天或办公协同相关开发经验加分;  
    薪资:20-35k  

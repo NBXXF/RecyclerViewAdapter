@@ -64,28 +64,38 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
         this(new ArrayList<T>());
     }
 
-    public void addHeader(@NonNull View view) {
+    @Nullable
+    @CheckResult
+    public View addHeader(@NonNull View view) {
         if (view == null) {
             throw new IllegalArgumentException("You can't have a null header!");
         }
         mHeaders.add(view);
         notifyDataSetChanged();
+        return view;
     }
 
-    public void addHeader(@LayoutRes int id, @NonNull RecyclerView recyclerView) {
-        addHeader(inflaterView(id, recyclerView));
+    @Nullable
+    @CheckResult
+    public View addHeader(@LayoutRes int id, @NonNull RecyclerView recyclerView) {
+        return addHeader(inflaterView(id, recyclerView));
     }
 
-    public void addFooter(@NonNull View view) {
+    @Nullable
+    @CheckResult
+    public View addFooter(@NonNull View view) {
         if (view == null) {
             throw new IllegalArgumentException("You can't have a null footer!");
         }
         mFooters.add(view);
         notifyDataSetChanged();
+        return view;
     }
 
-    public void addFooter(@LayoutRes int id, @NonNull RecyclerView recyclerView) {
-        addFooter(inflaterView(id, recyclerView));
+    @Nullable
+    @CheckResult
+    public View addFooter(@LayoutRes int id, @NonNull RecyclerView recyclerView) {
+        return addFooter(inflaterView(id, recyclerView));
     }
 
     @Nullable
