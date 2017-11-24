@@ -46,6 +46,13 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
         return dataList;
     }
 
+    public int getDataSize() {
+        return getData().size();
+    }
+
+    public boolean isDataEmpty() {
+        return getDataSize() <= 0;
+    }
 
     public int getHeaderCount() {
         return mHeaders.size();
@@ -186,6 +193,16 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     }
 
     /**
+     * 检查add index是否有效
+     *
+     * @param addIndex
+     * @return true 有效 false 无效
+     */
+    private boolean checkAddIndex(@IntRange(from = 0) int addIndex) {
+        return addIndex >= 0 && addIndex <= dataList.size();
+    }
+
+    /**
      * 检查list是否有效
      *
      * @param datas
@@ -231,7 +248,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
      * @return
      */
     public final boolean addItem(@IntRange(from = 0) int index, @Nullable T t) {
-        if (checkIndex(index)
+        if (checkAddIndex(index)
                 && checkItem(t)
                 && !getData().contains(t)) {
             getData().add(index, t);
@@ -244,7 +261,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
 
     public final boolean addItems(@IntRange(from = 0) int index, @NonNull List<? extends T> datas) {
         if (checkList(datas)
-                && checkIndex(index)
+                && checkAddIndex(index)
                 && !getData().containsAll(datas)) {
             if (getData().addAll(index, datas)) {
                 int internalPosition = index + getHeaderCount();
