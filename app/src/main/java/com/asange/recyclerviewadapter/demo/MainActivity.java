@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
     }
 
+    private void log(String charSequence) {
+        Log.d("----------->", charSequence);
+    }
+
     private void initView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mBtAdd = (Button) findViewById(R.id.btAdd);
@@ -60,6 +65,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         userAdapter.bindData(true, UserFactory.createUsers());
         userAdapter.setOnItemClickListener(this);
         userAdapter.setOnItemChildClickListener(this);
+
+        userAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                log("onChanged");
+            }
+
+            @Override
+            public void onItemRangeChanged(int positionStart, int itemCount) {
+                super.onItemRangeChanged(positionStart, itemCount);
+                log(String.format("onItemRangeChanged(%s, %s)", positionStart, itemCount));
+            }
+
+            @Override
+            public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+                super.onItemRangeChanged(positionStart, itemCount, payload);
+                log(String.format("onItemRangeChanged(%s,%s,%s)", positionStart, itemCount, payload));
+            }
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                log(String.format("onItemRangeInserted(%s,%s)", positionStart, itemCount));
+            }
+
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                super.onItemRangeRemoved(positionStart, itemCount);
+                log(String.format("onItemRangeRemoved(%s,%s)", positionStart, itemCount));
+            }
+
+            @Override
+            public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+                super.onItemRangeMoved(fromPosition, toPosition, itemCount);
+                log(String.format("onItemRangeMoved(%s,%s,%s)", fromPosition, toPosition, itemCount));
+            }
+        });
     }
 
     @Override
