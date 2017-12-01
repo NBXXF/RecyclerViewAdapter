@@ -17,7 +17,7 @@ import java.util.List;
  * date createTime：2017/10/5
  * version 2.1.0
  */
-public abstract class SelectableBaseAdapter<T extends SelectableEntity> extends BaseRecyclerAdapter<T> {
+public abstract class SelectableBaseAdapter<T extends SelectableEntity> extends BaseRecyclerAdapter<T> implements ISelectableAdapter {
 
     public static final int SELECT_TYPE_UNSELECTABLE = 200;
     public static final int SELECT_TYPE_SINGLE = 201;
@@ -57,8 +57,19 @@ public abstract class SelectableBaseAdapter<T extends SelectableEntity> extends 
      *
      * @return
      */
-    public boolean isSelectable() {
+    @Override
+    public final boolean isSelectable() {
         return selectType == SELECT_TYPE_SINGLE || selectType == SELECT_TYPE_MULTIPLE;
+    }
+
+    @Override
+    public final boolean isMultiSelect() {
+        return selectType == SELECT_TYPE_MULTIPLE;
+    }
+
+    @Override
+    public final boolean isSingleSelect() {
+        return selectType == SELECT_TYPE_SINGLE;
     }
 
     /**
