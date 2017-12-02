@@ -33,11 +33,13 @@ public abstract class SelectableBaseAdapter<T extends SelectableEntity> extends 
     @SelectType
     private int selectType = SELECT_TYPE_SINGLE;//默认单选
 
-    public SelectableBaseAdapter() {
+    public SelectableBaseAdapter(@SelectType int selectType) {
+        this.selectType = selectType;
     }
 
-    public SelectableBaseAdapter(@NonNull List<T> data) {
+    public SelectableBaseAdapter(@SelectType int selectType, @NonNull List<T> data) {
         super(data);
+        this.selectType = selectType;
     }
 
     public int getSelectType() {
