@@ -20,6 +20,7 @@ import com.asange.recyclerviewadapter.SelectableBaseAdapter;
  */
 public class UserAdapter extends SelectableBaseAdapter<User> implements OnItemClickListener {
     public UserAdapter() {
+        super(SELECT_TYPE_SINGLE);
         this.setOnItemClickListener(this);
     }
 

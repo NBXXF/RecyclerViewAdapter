@@ -16,18 +16,18 @@ import android.widget.TextView;
  * date createTime：2017/10/5
  * version 2.1.0
  */
-public class BaseViewHolder<D extends ViewDataBinding> extends RecyclerView.ViewHolder
+public class BaseViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener, View.OnLongClickListener {
     private BaseRecyclerAdapter baseRecyclerAdapter;
     private SparseArray<View> holder = null;
-    private D binding;
+    private ViewDataBinding binding;
 
     @Nullable
-    public D getBinding() {
+    public ViewDataBinding getBinding() {
         return binding;
     }
 
-    public void setBinding(D binding) {
+    public void setBinding(ViewDataBinding binding) {
         this.binding = binding;
     }
 
