@@ -168,7 +168,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
         } else {
             //上拉加载 不能为空,并且不包含
             if (checkList(datas)
-                    && !getData().contains(datas)) {
+                    && !getData().containsAll(datas)) {
                 getData().addAll(datas);
                 notifyDataSetChanged();
                 return true;
