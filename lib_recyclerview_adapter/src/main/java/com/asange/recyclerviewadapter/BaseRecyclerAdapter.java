@@ -128,7 +128,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     public boolean removeHeader(View view) {
         if (getHeaderCount() > 0) {
             if (mHeaders.contains(view)) {
-                boolean remove = mFooters.remove(view);
+                boolean remove = mHeaders.remove(view);
                 notifyDataSetChanged();
                 return remove;
             }
